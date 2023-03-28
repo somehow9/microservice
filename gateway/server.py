@@ -19,9 +19,7 @@ try:
 except Exception as err:
     raise err
 
-# connection = pika.BlockingConnection(pika.ConnectionParameters("rabbitmq"))
-# connection = pika.BlockingConnection(pika.ConnectionParameters("172.17.0.5"))
-connection = pika.BlockingConnection(pika.ConnectionParameters("192.168.1.157"))
+connection = pika.BlockingConnection(pika.ConnectionParameters("rabbitmq"))
 channel = connection.channel()
 
 @server.route("/login",methods=["POST"])
