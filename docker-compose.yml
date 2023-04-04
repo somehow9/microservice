@@ -1,0 +1,39 @@
+version: "3.0"  # optional since v1.27.0
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./gateway:/app
+    tty: true #keep container running even when docker cmd failed
+    # stdin_open: true
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "15672:15672"
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+  mongo:
+    image: mongo:4.4-rc
+    ports:
+      - "27017:27017"
+  ubuntu:
+    image: ubuntu:latest
+    tty: true
+  auth:
+    build: ./auth
+    volumes:
+      - ./auth:/app
+    environment:
+      - MYSQL=mysql
+  converter:
+    build: ./converter
+    volumes:
+      - ./converter:/app
+  notification:
+    build: ./notification
+    volumes:
+      - ./notification:/app
